@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PropBoard — NFL Tackles+Assists</title>
+<title>PropBoard — NFL Player Props</title>
 <style>
   :root { --bg:#0d1117; --card:#161b22; --line:#30363d; --txt:#e6edf3; --dim:#8b949e;
           --grn:#3fb950; --red:#f85149; --amb:#d29922; }
@@ -16,6 +16,7 @@
   input, select { background:#0d1117; color:var(--txt); border:1px solid var(--line);
           border-radius:6px; padding:6px 9px; font-size:14px; }
   input { flex:1; min-width:160px; }
+  .dim { color:var(--dim); font-size:12.5px; display:flex; align-items:center; gap:4px; }
   .wrap { padding:0 8px 24px; }
   table { width:100%; border-collapse:collapse; }
   th, td { text-align:left; padding:8px 7px; border-bottom:1px solid var(--line); white-space:nowrap; }
@@ -27,27 +28,28 @@
   .dim { color:var(--dim); font-size:12.5px; display:flex; align-items:center; gap:4px; }
   tr.locked { opacity:.45; }
   .lk { font-size:9px; letter-spacing:.05em; color:var(--amb); border:1px solid var(--line); border-radius:3px; padding:0 3px; }
+  .sn { font-size:10.5px; color:var(--dim); }
   .foot { color:var(--dim); font-size:11.5px; padding:12px 16px 28px; }
-  .bar { height:5px; border-radius:3px; background:var(--line); margin-top:3px; }
-  .bar > div { height:5px; border-radius:3px; }
-  @media (max-width:640px) { th:nth-child(5), td:nth-child(5) { display:none; } }
+  .count { color:var(--dim); font-size:12px; padding:0 16px 2px; }
 </style>
 </head>
 <body>
 <header>
-  <h1>PropBoard <span class="tag">NFL Tackles + Assists (combined)</span></h1>
+  <h1>PropBoard <span class="tag">NFL player props</span></h1>
   <div class="meta" id="meta">generated loads</div>
 </header>
 <div class="controls">
-  <input id="q" placeholder="Filter player / team / game…" autocomplete="off">
+  <input id="q" placeholder="Filter player / team…" autocomplete="off">
+  <select id="m"><option value="">All markets</option></select>
   <select id="s"><option value="">All sides</option><option value="O">Overs</option><option value="U">Unders</option></select>
   <label class="dim"><input type="checkbox" id="l" checked> hide locked</label>
 </div>
+<div class="count" id="count"></div>
 <div class="wrap">
   <table>
     <thead><tr>
-      <th>Game</th><th>Player</th><th>Pos</th><th>Pick</th><th>DK</th>
-      <th class="h">L10%</th><th class="h">MKT%</th><th class="h">Edge</th>
+      <th>Game</th><th>Player</th><th>Pos</th><th>Market</th><th>Pick</th>
+      <th class="h">DK</th><th class="h">L10%</th><th class="h">MKT%</th><th class="h">Edge</th>
     </tr></thead>
     <tbody id="tb"></tbody>
   </table>
@@ -56,34 +58,43 @@
 <script>
 const DATA = __DATA__;
 const $ = s => document.querySelector(s);
+const mkSel = $('#m');
+(DATA.markets||[]).forEach(mk => {
+  const o = document.createElement('option'); o.value = mk; o.textContent = DATA.marketMap?(DATA.marketMap[mk]||mk):mk;
+  mkSel.appendChild(o);
+});
 function fmt(px){ if(px==null) return '<span class="px">—</span>';
   const n = +px; const c = n > 0 ? 'g' : (n < 0 ? 'a' : '');
   return '<span class="'+c+'">'+px+'</span>'; }
 function pctCls(v){ return v >= 70 ? 'g' : (v >= 60 ? 'a' : ''); }
 function edgeCls(v){ return v >= 20 ? 'g' : (v >= 10 ? 'a' : ''); }
 function render(){
-  const q = ($('#q').value||'').toLowerCase(); const s = $('#s').value; const hideLocked = $('#l').checked;
+  const q = ($('#q').value||'').toLowerCase();
+  const mk = $('#m').value; const s = $('#s').value; const hideLocked = $('#l').checked;
   const rows = DATA.rows.filter(r =>
-    (!q || (r.name+' '+r.team+' '+r.game+' '+r.pos).toLowerCase().includes(q)) &&
+    (!q || (r.name+' '+(r.team||'')+' '+(r.game||'')+' '+(r.pos||'')).toLowerCase().includes(q)) &&
+    (!mk || r.market === mk) &&
     (!s || r.side === s) &&
     (!hideLocked || !r.locked));
   rows.sort((a,b) => b.hist - a.hist || b.edge - a.edge);
+  $('#count').textContent = rows.length + ' of ' + DATA.rows.length + ' props';
   $('#tb').innerHTML = rows.map(r => `<tr${r.locked?' class="locked"':''}>
     <td class="px">${r.game}${r.locked?' <span class="lk">LOCKED</span>':''}</td>
     <td><b>${r.name}</b></td>
-    <td class="px">${r.pos}</td>
-    <td><b>${r.side} ${r.line}</b> <span class="px">${fmt(r.price)} ${r.book}</span></td>
-    <td>${fmt(r.dk)}</td>
-    <td class="h ${pctCls(r.hist)}">${r.hist}%</td>
+    <td class="px">${r.pos||'—'}</td>
+    <td class="px">${r.prop||r.market||'—'}</td>
+    <td><b>${r.side} ${r.line}</b> <span class="px">${r.locked?'':fmt(r.price)+' '+(r.book||'')}</span></td>
+    <td class="h">${fmt(r.dk)}</td>
+    <td class="h ${pctCls(r.hist)}">${r.hist}% <span class="sn">(${r.sample||0})</span></td>
     <td class="h ${pctCls(r.mkt==null?0:r.mkt)}">${r.mkt==null?'—':r.mkt+'%'}</td>
     <td class="e ${edgeCls(r.edge)}">${r.edge>0?'+':''}${r.edge}</td>
   </tr>`).join('');
-  $('#foot').textContent = DATA.rows.length+' props · generated '+DATA.generated+' · snapshot from BetIQ (best-across-books, DK column = DraftKings price where quoted) · lines move — verify on the book before betting · 21+ · for research, not advice.';
 }
 $('#q').addEventListener('input', render);
+$('#m').addEventListener('change', render);
 $('#s').addEventListener('change', render);
 $('#l').addEventListener('change', render);
-$('#meta').textContent = DATA.date_label + ' · ' + DATA.sport + ' ' + DATA.week + ' · ' + DATA.generated;
+$('#meta').textContent = (DATA.date_label||'') + ' · ' + (DATA.sport||'') + ' ' + (DATA.week||'') + ' · ' + DATA.generated;
 render();
 </script>
 </body>
