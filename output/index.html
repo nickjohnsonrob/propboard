@@ -95,6 +95,7 @@ $('#m').addEventListener('change', render);
 $('#s').addEventListener('change', render);
 $('#l').addEventListener('change', render);
 $('#meta').textContent = (DATA.date_label||'') + ' · ' + (DATA.sport||'') + ' ' + (DATA.week||'') + ' · ' + DATA.generated;
+$('#foot').textContent = DATA.rows.length + ' props across ' + (DATA.markets||[]).length + ' markets · snapshot from BetIQ (best-across-books; DK column = DraftKings where quoted) · lines move — verify on the book · research only · 21+ · no markets for Sacks/Targets (see README).';
 render();
 </script>
 </body>
