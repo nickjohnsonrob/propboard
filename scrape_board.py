@@ -127,7 +127,7 @@ def scrape_game(gid):
                     pos = None
                     team = None
                     for cand in reversed(parts):
-                        if re.match(r'^[A-Z]{2,4}$', cand):
+                        if re.match(r'^[A-Z]{1,4}$', cand):
                             if team is None:
                                 team = cand
                             else:

@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-20 12:34 PDT",
+ "generated": "2026-09-20 12:42 PDT",
  "sport": "NFL",
  "week": "Week 2",
  "date_label": "Sun Sep 20 2026",
@@ -23,7 +23,7 @@
   {
    "game": "49ers @ dolphins",
    "name": "Zayne Anderson",
-   "pos": null,
+   "pos": "S",
    "team": "MIA",
    "line": "3.5",
    "side": "U",
@@ -39,7 +39,7 @@
   {
    "game": "falcons @ panthers",
    "name": "Nick Scott",
-   "pos": null,
+   "pos": "S",
    "team": "CAR",
    "line": "6.5",
    "side": "O",
@@ -151,7 +151,7 @@
   {
    "game": "browns @ buccaneers",
    "name": "Grant Delpit",
-   "pos": null,
+   "pos": "S",
    "team": "CLE",
    "line": "5.5",
    "side": "U",
@@ -167,7 +167,7 @@
   {
    "game": "ravens @ saints",
    "name": "Julian Blackmon",
-   "pos": null,
+   "pos": "S",
    "team": "NO",
    "line": "5.5",
    "side": "U",
@@ -199,7 +199,7 @@
   {
    "game": "eagles @ titans",
    "name": "Marcus Epps",
-   "pos": null,
+   "pos": "S",
    "team": "PHI",
    "line": "4.5",
    "side": "U",
@@ -263,7 +263,7 @@
   {
    "game": "eagles @ titans",
    "name": "Kevin Winston",
-   "pos": null,
+   "pos": "S",
    "team": "TEN",
    "line": "5.5",
    "side": "U",
@@ -311,7 +311,7 @@
   {
    "game": "patriots @ steelers",
    "name": "Craig Woodson",
-   "pos": null,
+   "pos": "S",
    "team": "NE",
    "line": "5.5",
    "side": "U",
@@ -471,7 +471,7 @@
   {
    "game": "browns @ buccaneers",
    "name": "Tykee Smith",
-   "pos": null,
+   "pos": "S",
    "team": "TB",
    "line": "5.5",
    "side": "U",
@@ -503,7 +503,7 @@
   {
    "game": "broncos @ jaguars",
    "name": "Talanoa Hufanga",
-   "pos": null,
+   "pos": "S",
    "team": "DEN",
    "line": "6.5",
    "side": "U",
@@ -519,7 +519,7 @@
   {
    "game": "bills @ lions",
    "name": "C.J. Gardner-Johnson",
-   "pos": null,
+   "pos": "S",
    "team": "BUF",
    "line": "5.5",
    "side": "U",
@@ -535,7 +535,7 @@
   {
    "game": "jets @ packers",
    "name": "Dane Belton",
-   "pos": null,
+   "pos": "S",
    "team": "NYJ",
    "line": "5.5",
    "side": "O",
@@ -599,7 +599,7 @@
   {
    "game": "bengals @ texans",
    "name": "Jalen Pitre",
-   "pos": null,
+   "pos": "S",
    "team": "HOU",
    "line": "6.5",
    "side": "U",
@@ -663,7 +663,7 @@
   {
    "game": "chiefs @ colts",
    "name": "Alohi Gilman",
-   "pos": null,
+   "pos": "S",
    "team": "KC",
    "line": "5.5",
    "side": "O",
@@ -759,7 +759,7 @@
   {
    "game": "patriots @ steelers",
    "name": "Jaquan Brisker",
-   "pos": null,
+   "pos": "S",
    "team": "PIT",
    "line": "6.5",
    "side": "O",
@@ -775,7 +775,7 @@
   {
    "game": "cardinals @ seahawks",
    "name": "Budda Baker",
-   "pos": null,
+   "pos": "S",
    "team": "ARI",
    "line": "7.5",
    "side": "O",
@@ -791,7 +791,7 @@
   {
    "game": "broncos @ jaguars",
    "name": "Brandon Jones",
-   "pos": null,
+   "pos": "S",
    "team": "DEN",
    "line": "5.5",
    "side": "U",
@@ -807,7 +807,7 @@
   {
    "game": "broncos @ jaguars",
    "name": "Antonio Johnson",
-   "pos": null,
+   "pos": "S",
    "team": "JAC",
    "line": "4.5",
    "side": "U",
@@ -839,7 +839,7 @@
   {
    "game": "browns @ buccaneers",
    "name": "Antoine Winfield",
-   "pos": null,
+   "pos": "S",
    "team": "TB",
    "line": "5.5",
    "side": "O",
@@ -903,7 +903,7 @@
   {
    "game": "falcons @ panthers",
    "name": "Xavier Watts",
-   "pos": null,
+   "pos": "S",
    "team": "ATL",
    "line": "5.5",
    "side": "U",
@@ -951,7 +951,7 @@
   {
    "game": "commanders @ cowboys",
    "name": "Jalen Thompson",
-   "pos": null,
+   "pos": "S",
    "team": "DAL",
    "line": "6.5",
    "side": "U",
@@ -967,7 +967,7 @@
   {
    "game": "browns @ buccaneers",
    "name": "Ronnie Hickman",
-   "pos": null,
+   "pos": "S",
    "team": "CLE",
    "line": "5.5",
    "side": "O",
@@ -1031,7 +1031,7 @@
   {
    "game": "eagles @ titans",
    "name": "Amani Hooker",
-   "pos": null,
+   "pos": "S",
    "team": "TEN",
    "line": "6.5",
    "side": "U",
@@ -1047,7 +1047,7 @@
   {
    "game": "chargers @ raiders",
    "name": "Jeremy Chinn",
-   "pos": null,
+   "pos": "S",
    "team": "LV",
    "line": "6.5",
    "side": "O",
@@ -1079,7 +1079,7 @@
   {
    "game": "commanders @ cowboys",
    "name": "Nick Cross",
-   "pos": null,
+   "pos": "S",
    "team": "WAS",
    "line": "6.5",
    "side": "O",
@@ -1111,7 +1111,7 @@
   {
    "game": "jets @ packers",
    "name": "Evan Williams",
-   "pos": null,
+   "pos": "S",
    "team": "GB",
    "line": "6.5",
    "side": "U",
@@ -1159,7 +1159,7 @@
   {
    "game": "falcons @ panthers",
    "name": "Jessie Bates",
-   "pos": null,
+   "pos": "S",
    "team": "ATL",
    "line": "5.5",
    "side": "O",
@@ -1175,7 +1175,7 @@
   {
    "game": "bengals @ texans",
    "name": "Jordan Battle",
-   "pos": null,
+   "pos": "S",
    "team": "CIN",
    "line": "6.5",
    "side": "U",
@@ -1303,7 +1303,7 @@
   {
    "game": "bears @ vikings",
    "name": "Joshua Metellus",
-   "pos": null,
+   "pos": "S",
    "team": "MIN",
    "line": "5.5",
    "side": "U",
@@ -1319,7 +1319,7 @@
   {
    "game": "patriots @ steelers",
    "name": "Kevin Byard",
-   "pos": null,
+   "pos": "S",
    "team": "NE",
    "line": "5.5",
    "side": "U",
@@ -1335,7 +1335,7 @@
   {
    "game": "falcons @ panthers",
    "name": "Tre'von Moehrig",
-   "pos": null,
+   "pos": "S",
    "team": "CAR",
    "line": "5.5",
    "side": "O",
@@ -1367,7 +1367,7 @@
   {
    "game": "jets @ packers",
    "name": "Xavier McKinney",
-   "pos": null,
+   "pos": "S",
    "team": "GB",
    "line": "5.5",
    "side": "U",
@@ -1399,7 +1399,7 @@
   {
    "game": "chargers @ raiders",
    "name": "Derwin James",
-   "pos": null,
+   "pos": "S",
    "team": "LAC",
    "line": "5.5",
    "side": "U",
@@ -1447,7 +1447,7 @@
   {
    "game": "ravens @ saints",
    "name": "Kyle Hamilton",
-   "pos": null,
+   "pos": "S",
    "team": "BAL",
    "line": "5.5",
    "side": "U",
@@ -1543,7 +1543,7 @@
   {
    "game": "patriots @ steelers",
    "name": "Kevin Byard",
-   "pos": null,
+   "pos": "S",
    "team": "NE",
    "line": "5.5",
    "side": "O",
@@ -1575,7 +1575,7 @@
   {
    "game": "ravens @ saints",
    "name": "Kyle Hamilton",
-   "pos": null,
+   "pos": "S",
    "team": "BAL",
    "line": "5.5",
    "side": "O",
@@ -1623,7 +1623,7 @@
   {
    "game": "chargers @ raiders",
    "name": "Derwin James",
-   "pos": null,
+   "pos": "S",
    "team": "LAC",
    "line": "5.5",
    "side": "O",
@@ -1655,7 +1655,7 @@
   {
    "game": "jets @ packers",
    "name": "Xavier McKinney",
-   "pos": null,
+   "pos": "S",
    "team": "GB",
    "line": "5.5",
    "side": "O",
@@ -1687,7 +1687,7 @@
   {
    "game": "falcons @ panthers",
    "name": "Tre'von Moehrig",
-   "pos": null,
+   "pos": "S",
    "team": "CAR",
    "line": "5.5",
    "side": "U",
@@ -1719,7 +1719,7 @@
   {
    "game": "bears @ vikings",
    "name": "Joshua Metellus",
-   "pos": null,
+   "pos": "S",
    "team": "MIN",
    "line": "5.5",
    "side": "O",
@@ -1895,7 +1895,7 @@
   {
    "game": "eagles @ titans",
    "name": "Amani Hooker",
-   "pos": null,
+   "pos": "S",
    "team": "TEN",
    "line": "6.5",
    "side": "O",
@@ -1911,7 +1911,7 @@
   {
    "game": "bengals @ texans",
    "name": "Jordan Battle",
-   "pos": null,
+   "pos": "S",
    "team": "CIN",
    "line": "6.5",
    "side": "O",
@@ -1991,7 +1991,7 @@
   {
    "game": "jets @ packers",
    "name": "Evan Williams",
-   "pos": null,
+   "pos": "S",
    "team": "GB",
    "line": "6.5",
    "side": "O",
@@ -2007,7 +2007,7 @@
   {
    "game": "commanders @ cowboys",
    "name": "Nick Cross",
-   "pos": null,
+   "pos": "S",
    "team": "WAS",
    "line": "6.5",
    "side": "U",
@@ -2039,7 +2039,7 @@
   {
    "game": "chargers @ raiders",
    "name": "Jeremy Chinn",
-   "pos": null,
+   "pos": "S",
    "team": "LV",
    "line": "6.5",
    "side": "U",
@@ -2055,7 +2055,7 @@
   {
    "game": "falcons @ panthers",
    "name": "Jessie Bates",
-   "pos": null,
+   "pos": "S",
    "team": "ATL",
    "line": "5.5",
    "side": "U",
@@ -2119,7 +2119,7 @@
   {
    "game": "browns @ buccaneers",
    "name": "Ronnie Hickman",
-   "pos": null,
+   "pos": "S",
    "team": "CLE",
    "line": "5.5",
    "side": "U",
@@ -2151,7 +2151,7 @@
   {
    "game": "commanders @ cowboys",
    "name": "Jalen Thompson",
-   "pos": null,
+   "pos": "S",
    "team": "DAL",
    "line": "6.5",
    "side": "O",
@@ -2167,7 +2167,7 @@
   {
    "game": "falcons @ panthers",
    "name": "Xavier Watts",
-   "pos": null,
+   "pos": "S",
    "team": "ATL",
    "line": "5.5",
    "side": "O",
@@ -2199,7 +2199,7 @@
   {
    "game": "browns @ buccaneers",
    "name": "Antoine Winfield",
-   "pos": null,
+   "pos": "S",
    "team": "TB",
    "line": "5.5",
    "side": "U",
@@ -2231,7 +2231,7 @@
   {
    "game": "broncos @ jaguars",
    "name": "Antonio Johnson",
-   "pos": null,
+   "pos": "S",
    "team": "JAC",
    "line": "4.5",
    "side": "O",
@@ -2247,7 +2247,7 @@
   {
    "game": "broncos @ jaguars",
    "name": "Brandon Jones",
-   "pos": null,
+   "pos": "S",
    "team": "DEN",
    "line": "5.5",
    "side": "O",
@@ -2263,7 +2263,7 @@
   {
    "game": "patriots @ steelers",
    "name": "Jaquan Brisker",
-   "pos": null,
+   "pos": "S",
    "team": "PIT",
    "line": "6.5",
    "side": "U",
@@ -2279,7 +2279,7 @@
   {
    "game": "cardinals @ seahawks",
    "name": "Budda Baker",
-   "pos": null,
+   "pos": "S",
    "team": "ARI",
    "line": "7.5",
    "side": "U",
@@ -2375,7 +2375,7 @@
   {
    "game": "chiefs @ colts",
    "name": "Alohi Gilman",
-   "pos": null,
+   "pos": "S",
    "team": "KC",
    "line": "5.5",
    "side": "U",
@@ -2423,7 +2423,7 @@
   {
    "game": "bengals @ texans",
    "name": "Jalen Pitre",
-   "pos": null,
+   "pos": "S",
    "team": "HOU",
    "line": "6.5",
    "side": "O",
@@ -2471,7 +2471,7 @@
   {
    "game": "bills @ lions",
    "name": "C.J. Gardner-Johnson",
-   "pos": null,
+   "pos": "S",
    "team": "BUF",
    "line": "5.5",
    "side": "O",
@@ -2535,7 +2535,7 @@
   {
    "game": "jets @ packers",
    "name": "Dane Belton",
-   "pos": null,
+   "pos": "S",
    "team": "NYJ",
    "line": "5.5",
    "side": "U",
@@ -2567,7 +2567,7 @@
   {
    "game": "broncos @ jaguars",
    "name": "Talanoa Hufanga",
-   "pos": null,
+   "pos": "S",
    "team": "DEN",
    "line": "6.5",
    "side": "O",
@@ -2615,7 +2615,7 @@
   {
    "game": "browns @ buccaneers",
    "name": "Tykee Smith",
-   "pos": null,
+   "pos": "S",
    "team": "TB",
    "line": "5.5",
    "side": "O",
@@ -2711,7 +2711,7 @@
   {
    "game": "patriots @ steelers",
    "name": "Craig Woodson",
-   "pos": null,
+   "pos": "S",
    "team": "NE",
    "line": "5.5",
    "side": "O",
@@ -2775,7 +2775,7 @@
   {
    "game": "eagles @ titans",
    "name": "Kevin Winston",
-   "pos": null,
+   "pos": "S",
    "team": "TEN",
    "line": "5.5",
    "side": "O",
@@ -2871,7 +2871,7 @@
   {
    "game": "browns @ buccaneers",
    "name": "Grant Delpit",
-   "pos": null,
+   "pos": "S",
    "team": "CLE",
    "line": "5.5",
    "side": "O",
@@ -2887,7 +2887,7 @@
   {
    "game": "eagles @ titans",
    "name": "Marcus Epps",
-   "pos": null,
+   "pos": "S",
    "team": "PHI",
    "line": "4.5",
    "side": "O",
@@ -2919,7 +2919,7 @@
   {
    "game": "ravens @ saints",
    "name": "Julian Blackmon",
-   "pos": null,
+   "pos": "S",
    "team": "NO",
    "line": "5.5",
    "side": "O",
@@ -2999,7 +2999,7 @@
   {
    "game": "49ers @ dolphins",
    "name": "Zayne Anderson",
-   "pos": null,
+   "pos": "S",
    "team": "MIA",
    "line": "3.5",
    "side": "O",
@@ -3015,7 +3015,7 @@
   {
    "game": "falcons @ panthers",
    "name": "Nick Scott",
-   "pos": null,
+   "pos": "S",
    "team": "CAR",
    "line": "6.5",
    "side": "U",
