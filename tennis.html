@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tennis PropBoard — Sep 25 2026 Card</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --line:#30363d; --txt:#e6edf3; --dim:#8b949e;
+          --grn:#3fb950; --red:#f85149; --amb:#d29922; --vio:#a371f7; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:15px/1.45 -apple-system,Segoe UI,Roboto,sans-serif; background:var(--bg); color:var(--txt); }
+  header { padding:16px 16px 8px; }
+  h1 { font-size:20px; margin:0 0 4px; }
+  .meta { color:var(--dim); font-size:12.5px; }
+  .meta a { color:var(--vio); text-decoration:none; }
+  .controls { display:flex; flex-wrap:wrap; gap:8px; padding:10px 16px 6px; }
+  input, select { background:#0d1117; color:var(--txt); border:1px solid var(--line);
+          border-radius:6px; padding:6px 9px; font-size:14px; }
+  input { flex:1; min-width:160px; }
+  .wrap { padding:0 8px 24px; }
+  h2 { font-size:15px; margin:18px 16px 6px; color:var(--txt); }
+  table { width:100%; border-collapse:collapse; }
+  th, td { text-align:left; padding:7px 7px; border-bottom:1px solid var(--line); white-space:nowrap; font-variant-numeric:tabular-nums; }
+  th { position:sticky; top:0; background:var(--bg); color:var(--dim); font-size:11.5px; text-transform:uppercase; letter-spacing:.04em; }
+  .g { color:var(--grn); font-weight:600; } .r { color:var(--red); } .a { color:var(--amb); } .d { color:var(--dim); }
+  .tag { display:inline-block; font-size:10.5px; padding:1px 6px; border-radius:4px; border:1px solid var(--line); color:var(--dim); margin-right:4px; }
+  .tag.take { color:var(--grn); border-color:var(--grn); }
+  .tag.lean { color:var(--amb); border-color:var(--amb); }
+  .tag.coin { color:var(--dim); }
+  .note { color:var(--dim); font-size:12px; white-space:normal; min-width:200px; }
+  ul.cheat { padding-left:20px; margin:6px 16px 16px; }
+  ul.cheat li { margin:3px 0; }
+  .gcell { text-align:right; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:8px; margin:8px 16px; padding:10px 12px; }
+  .pill { font-size:11px; color:var(--vio); }
+  footer { color:var(--dim); font-size:12px; padding:8px 16px 24px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Tennis PropBoard — Sep 25/26 2026 card</h1>
+  <div class="meta">Model fairs vs posted pick'em lines · ATP Hangzhou/Chengdu + WTA Korea QFs ·
+    Built <span id="gen"></span> · <a href="index.html">← NFL prop board</a></div>
+</header>
+
+<div class="controls">
+  <input id="q" type="search" placeholder="Filter player / match…">
+  <select id="view">
+    <option value="both">All</option>
+    <option value="clears">Only ≥54% plays</option>
+    <option value="traps">Only traps (&lt;50%)</option>
+  </select>
+  <span class="meta">Gate: take a leg when fair ≥ 54%</span>
+</div>
+
+<div class="wrap">
+<h2>Match level</h2>
+<table id="matchT">
+<thead><tr>
+  <th>Match</th><th>Fair ML</th><th>u2.5 sets</th><th>o2.5 sets</th>
+  <th>o0.5 tiebreaks</th><th>E[games]</th><th>Signal</th>
+</tr></thead>
+<tbody></tbody>
+</table>
+
+<h2>Player level — Games Won / Aces / Double Faults</h2>
+<table id="playerT">
+<thead><tr>
+  <th>Player</th><th>Match</th><th></th>
+  <th class="gcell">GW o9.5</th><th class="gcell">o11.5</th><th class="gcell">o12.5</th>
+  <th class="gcell">Aces o3.5</th><th class="gcell">u4.5</th>
+  <th class="gcell">DF u3.5</th><th class="gcell">o3.5</th>
+  <th>Notes</th>
+</tr></thead>
+<tbody></tbody>
+</table>
+
+<div class="card">
+  <h2 style="margin:4px 0 8px;">Cheat sheet</h2>
+  <b style="color:var(--grn)">Best overs</b>
+  <ul class="cheat" id="overs"></ul>
+  <b style="color:var(--grn)">Best unders</b>
+  <ul class="cheat" id="unders"></ul>
+  <b style="color:var(--red)">Traps</b>
+  <ul class="cheat" id="traps"></ul>
+  <b style="color:var(--vio)">Already seen on app cards (pre-verified)</b>
+  <ul class="cheat" id="cards"></ul>
+</div>
+
+<div class="card">
+  <b>Caveats</b>
+  <ul class="cheat" id="caveats"></ul>
+</div>
+</div>
+
+<footer>Model: games/sets from per-game i.i.d. anchored to Kalshi fair MLs; aces/DFs = Poisson on season
+rates with ±30% opponent-return adjustment; BP lines only where conversion data verified.
+Prices drift — re-pull before entry. Not betting advice; for tool records.</footer>
+
+<div class="card pill">Data JSON archived at output/tennis-2026-09-25.json</div>
+
+<script>
+const DATA = {"generated": "2026-09-25 21:45 UTC", "matches": [{"m": "Medvedev v Royer", "event": "ATP Hangzhou R16", "fav": "Medvedev", "ml": 77, "u25": 83, "o25": 17, "tb": 11, "etot": 18.8, "tier": "take"}, {"m": "Hurkacz v Damm Jr", "event": "ATP (US eco) R2", "fav": "Hurkacz", "ml": 69, "u25": 71, "o25": 29, "tb": 17, "etot": 20.8, "tier": "take"}, {"m": "Preston v Korneeva", "event": "WTA Korea QF", "fav": "Korneeva", "ml": 71, "u25": 69, "o25": 31, "tb": 19, "etot": 21.2, "tier": "take"}, {"m": "Cerundolo v Davidovich Fokina", "event": "ATP Chengdu R2", "fav": "ADF", "ml": 59, "u25": 59, "o25": 41, "tb": 23, "etot": 22.7, "tier": "lean"}, {"m": "Volynets v Birrell", "event": "WTA Korea QF", "fav": "Birrell", "ml": 66, "u25": 59, "o25": 41, "tb": 23, "etot": 22.7, "tier": "lean"}, {"m": "Halys v Safiullin", "event": "ATP Hangzhou R2", "fav": "Halys", "ml": 55, "u25": 51, "o25": 49, "tb": 27, "etot": 23.9, "tier": "coin"}, {"m": "Tararudee v Joint", "event": "WTA Korea QF", "fav": "Tararudee", "ml": 54, "u25": 51, "o25": 49, "tb": 28, "etot": 24.1, "tier": "coin"}, {"m": "Bu v Majchrzak", "event": "ATP Hangzhou/Chengdu R2", "fav": "Majchrzak", "ml": 54.5, "u25": 49, "o25": 51, "tb": 26, "etot": 23.7, "tier": "coin"}, {"m": "Vacherot v Harris", "event": "ATP R2", "fav": "Vacherot", "ml": 53, "u25": 51, "o25": 49, "tb": 27, "etot": 23.9, "tier": "coin"}, {"m": "Cina v Muller", "event": "ATP Chengdu R2", "fav": "Muller", "ml": 53, "u25": 51, "o25": 49, "tb": 28, "etot": 24.1, "tier": "coin"}, {"m": "Wong v Vallejo", "event": "ATP R2", "fav": "Wong", "ml": 60, "u25": 59, "o25": 41, "tb": 23, "etot": 22.7, "tier": "lean"}], "players": [{"p": "Medvedev", "m": "v Royer", "role": "FAV", "g": [99, 99, 32], "ac_lam": 7.3, "ac35": 99, "acu45": 4, "df_lam": 3.1, "dfu35": 62, "dfo35": 38, "note": "DF data regime-conflicted (2026 \u03bb2.9 vs career 4.0) \u2014 skip his DF line"}, {"p": "Royer", "m": "v Medvedev", "role": "DOG", "g": [16, 9, 6], "ac_lam": 3.4, "ac35": 43, "acu45": 75, "df_lam": 2.2, "dfu35": 82, "dfo35": 18, "note": "2026 mostly Challenger level \u2014 wide bands"}, {"p": "Halys", "m": "v Safiullin", "role": "FAV", "g": [84, 79, 54], "ac_lam": 10.6, "ac35": 99, "acu45": 2, "df_lam": 3.4, "dfu35": 56, "dfo35": 44, "note": "13.5% ace rate; best aces-over on the board"}, {"p": "Safiullin", "m": "v Halys", "role": "DOG", "g": [67, 58, 44], "ac_lam": 6.6, "ac35": 89, "acu45": 22, "df_lam": 2.5, "dfu35": 76, "dfo35": 24, "note": "BP-conv 21.8% on one source is a data bug (real ~38.8%)"}, {"p": "Muller", "m": "v Cina", "role": "FAV", "g": [82, 76, 53], "ac_lam": 4.2, "ac35": 60, "acu45": 60, "df_lam": 1.8, "dfu35": 89, "dfo35": 11, "note": "cleanest DF under on ATP board"}, {"p": "Cina", "m": "v Muller", "role": "DOG", "g": [70, 62, 46], "ac_lam": 4.6, "ac35": 67, "acu45": 51, "df_lam": 2.7, "dfu35": 71, "dfo35": 29, "note": ""}, {"p": "Davidovich Fokina", "m": "v Cerundolo", "role": "FAV", "g": [93, 90, 54], "ac_lam": 3.9, "ac35": 55, "acu45": 65, "df_lam": 1.21, "dfu35": 97, "dfo35": 3, "note": "very clean server; 42% BP conversion vs Cerundolo's 72% hard hold"}, {"p": "J.M. Cerundolo", "m": "v ADF", "role": "DOG", "g": [49, 39, 29], "ac_lam": 5.0, "ac35": 74, "acu45": 43, "df_lam": 3.0, "dfu35": 65, "dfo35": 35, "note": "ADF leads H2H 2-0"}, {"p": "Vacherot", "m": "v Harris", "role": "FAV", "g": [84, 79, 54], "ac_lam": 10.0, "ac35": 99, "acu45": 3, "df_lam": 2.8, "dfu35": 69, "dfo35": 31, "note": ""}, {"p": "Harris", "m": "v Vacherot", "role": "DOG", "g": [67, 58, 44], "ac_lam": 9.7, "ac35": 99, "acu45": 4, "df_lam": 1.9, "dfu35": 87, "dfo35": 13, "note": "DF source conflict (1.2 vs 2.5) \u2014 only his aces are playable"}, {"p": "Hurkacz", "m": "v Damm Jr", "role": "FAV", "g": [97, 96, 45], "ac_lam": 5.8, "ac35": 89, "acu45": 22, "df_lam": 3.5, "dfu35": 54, "dfo35": 46, "note": "BP-won o1.5 \u2248 44-73% (Damm saves only 30%) \u2014 most variance-exposed takeable leg"}, {"p": "Damm Jr", "m": "v Hurkacz", "role": "DOG", "g": [31, 21, 15], "ac_lam": 9.9, "ac35": 99, "acu45": 1, "df_lam": 3.98, "dfu35": 44, "dfo35": 56, "note": "23-173yd type ace volume; 11.7 aces/m season"}, {"p": "Tararudee", "m": "v Joint", "role": "FAV", "g": [82, 76, 53], "ac_lam": 3.0, "ac35": 35, "acu45": 82, "df_lam": 4.1, "dfu35": 41, "dfo35": 59, "note": "loose server: DF overs live, aces dead"}, {"p": "Joint", "m": "v Tararudee", "role": "DOG", "g": [70, 62, 46], "ac_lam": 2.2, "ac35": 18, "acu45": 93, "df_lam": 3.7, "dfu35": 49, "dfo35": 51, "note": ""}, {"p": "Birrell", "m": "v Volynets", "role": "FAV", "g": [93, 90, 54], "ac_lam": 1.5, "ac35": 13, "acu45": 96, "df_lam": 5.9, "dfu35": 16, "dfo35": 84, "note": "loosest server on WTA board \u2014 DF OVER is the play, never the under. QF was LIVE/suspended at pull time."}, {"p": "Volynets", "m": "v Birrell", "role": "DOG", "g": [49, 39, 29], "ac_lam": 1.4, "ac35": 3, "acu45": 99, "df_lam": 1.5, "dfu35": 93, "dfo35": 7, "note": "75.7% first-serve machine; cleanest WTA DF under"}, {"p": "Korneeva", "m": "v Preston", "role": "FAV", "g": [97, 95, 48], "ac_lam": 1.5, "ac35": 9, "acu45": 98, "df_lam": 2.8, "dfu35": 69, "dfo35": 31, "note": ""}, {"p": "Preston", "m": "v Korneeva", "role": "DOG", "g": [34, 24, 18], "ac_lam": 1.2, "ac35": 18, "acu45": 97, "df_lam": 4.3, "dfu35": 38, "dfo35": 62, "note": "u11.5 games won \u2248 92-96% (biggest cushion on the board); aces o0.5 \u2248 70-82%"}, {"p": "Bu Yunchaokete", "m": "v Majchrzak", "role": "DOG~", "g": [34, null, null], "ac_lam": null, "ac35": null, "acu45": null, "df_lam": null, "dfu35": null, "dfo35": null, "note": "no per-player stats pulled \u2014 BP o2 \u2248 55-70% if 6+ chances, unverifiable"}, {"p": "Majchrzak", "m": "v Bu", "role": "FAV~", "g": [37, 24, 18], "ac_lam": null, "ac35": null, "acu45": null, "df_lam": null, "dfu35": null, "dfo35": null, "note": "ALL THREE \ud83d\ude08 lines on his card priced above fair: GW o13.5 37-39%, sets o2.5 49-50%, aces o10.5 1-18%"}], "cheats": {"best_overs": ["Halys o4.5 aces \u2014 ~98%", "Damm Jr o5.5 aces \u2014 ~93% (after \u221215% vs Hurkacz return)", "Vacherot o5.5 aces \u2014 ~93%", "Medvedev o4.5 aces \u2014 ~96% (hard \u03bb7.3 vs Royer's weak 31% RPW return)", "Preston o0.5 aces \u2014 70-82%", "Harris o4.5 aces \u2014 ~92%"], "best_unders": ["Preston u11.5 games won \u2014 ~92-96%", "ADF u3.5 DFs \u2014 ~88-97%", "Volynets u3.5 DFs \u2014 ~93%", "Muller u3.5 DFs \u2014 ~89%", "Royer u3.5 DFs \u2014 ~82% (wide band)", "Favorites u2.5 sets: Medvedev 83% / Hurkacz 71% / Korneeva 69%"], "traps": ["Medvedev o12.5 games won \u2014 32% (the 12.5 cliff)", "All underdog games-overs \u2014 6-67%", "All o0.5 tiebreaks \u2014 11-28%", "All WTA aces-overs \u2014 3-40%", "Birrell DF under \u2014 16% (hers land OVER 84%)", "Majchrzak card \ud83d\ude08 lines: GW o13.5 (37-39%), sets o2.5 (49%), aces o10.5 (1-18%)", "Hurkacz aces o19.5 \u2014 \u22480-2% (demon line)"], "seen_on_cards": ["Medvedev card: GW 12.5 LESS 83-84% \u2713 | Total Games 21.5 LESS 72% \u2713 | Sets u2.5 79% \u2713 | Fantasy Score skip", "Hurkacz card: GW 14.5 LESS 72-78% \u2713 | Sets u2.5 59-71% \u2713 | BP o1.5 borderline (44-73%) | aces 19.5 NEVER | TB o0.5 18-23% skip", "Preston card: GW 11.5 LESS 92-96% \u2713 | Aces o0.5 MORE 70-82% \u2713 | BP 3.5 skip | 1st-set GW 4.5 LESS 58-72% \u2713 (thin)", "Majchrzak card: nothing clears the gate \u2014 all jumps are demon-decorated coin flips"], "caveats": ["Model fairs, not posted lines \u2014 PP's posted number decides whether a leg actually clears the 54% gate.", "Aces/DFs = Poisson on season rates with \u00b130% opponent-return adjustment; tennis stats are ~40% overdispersed, so skip any line within ~1 DF / 2 aces of \u03bb.", "Games-won model: per-game i.i.d. from Kalshi MLs; 7-6 sets treated as 50/50 tiebreaks (\u00b15pp).", "Volynets-Birrell QF was live/suspended at pull time (Birrell 6-2 2-6, 3rd set 4-2) \u2014 re-check state before any prop there.", "MLB/NFL boards live on the main site page; this page is tennis-only for the 2026-09-25/26 card."]}};
+document.getElementById('gen').textContent = DATA.generated;
+
+function cls(v){ return v>=54 ? 'g' : (v>=50 ? 'a' : 'r'); }
+function sig(t){ return t==='take' ? '<span class="tag take">TAKE fav-lean markets</span>'
+                : t==='lean' ? '<span class="tag lean">LEAN</span>'
+                : '<span class="tag coin">COIN FLIP — skip markets here</span>'; }
+function f(v){ return v==null ? '<span class="d">—</span>' : `<span class="${cls(v)}">${v}%</span>`; }
+
+// match table
+const mb = document.querySelector('#matchT tbody');
+DATA.matches.forEach(r=>{
+  mb.insertAdjacentHTML('beforeend', `<tr>
+    <td>${r.m}<div class="d" style="font-size:11.5px">${r.event}</div></td>
+    <td>${r.m.split(' v ')[1] ? r.fav+' ~'+r.ml+'%' : r.fav}</td>
+    <td>${f(r.u25)}</td><td>${f(r.o25)}</td><td>${f(r.tb)}</td>
+    <td class="gcell">${r.etot}</td><td>${sig(r.tier)}</td></tr>`);
+});
+
+// player table
+const pb = document.querySelector('#playerT tbody');
+DATA.players.forEach(r=>{
+  pb.insertAdjacentHTML('beforeend', `<tr>
+    <td>${r.p}</td><td>${r.m}</td><td><span class="tag ${r.role==='FAV'?'take':'coin'}">${r.role}</span></td>
+    <td class="gcell">${f(r.g[0])}</td><td class="gcell">${f(r.g[1])}</td><td class="gcell">${f(r.g[2])}</td>
+    <td class="gcell">${f(r.ac35)}</td><td class="gcell">${f(r.acu45)}</td>
+    <td class="gcell">${f(r.dfu35)}</td><td class="gcell">${f(r.dfo35)}</td>
+    <td class="note">${r.note||''}</td></tr>`);
+});
+
+// cheat sheet
+const fill = (id, arr) => document.getElementById(id).innerHTML = arr.map(x=>`<li>${x}</li>`).join('');
+fill('overs', DATA.cheats.best_overs);
+fill('unders', DATA.cheats.best_unders);
+fill('traps', DATA.cheats.traps);
+fill('cards', DATA.cheats.seen_on_cards);
+fill('caveats', DATA.cheats.caveats);
+
+// filter
+function rowText(tr){ return tr.textContent.toLowerCase(); }
+function keep(tr){
+  const q = document.getElementById('q').value.toLowerCase();
+  const v = document.getElementById('view').value;
+  if (q && !rowText(tr).includes(q)) return false;
+  if (v==='clears') return tr.querySelectorAll('.g').length > 0 && !tr.querySelector('.r') ;
+  if (v==='traps')  return tr.querySelectorAll('.r').length > 0;
+  return true;
+}
+function apply(){
+  document.querySelectorAll('#matchT tbody tr, #playerT tbody tr').forEach(tr=>{
+    tr.style.display = keep(tr) ? '' : 'none';
+  });
+}
+document.getElementById('q').addEventListener('input', apply);
+document.getElementById('view').addEventListener('change', apply);
+</script>
+</body>
+</html>
