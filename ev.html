@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PropBoard — Week 3 EV Board</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --line:#30363d; --txt:#e6edf3; --dim:#8b949e;
+          --grn:#3fb950; --red:#f85149; --amb:#d29922; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:15px/1.45 -apple-system,Segoe UI,Roboto,sans-serif; background:var(--bg); color:var(--txt); }
+  header { padding:16px 16px 8px; }
+  h1 { font-size:20px; margin:0 0 4px; }
+  .meta { color:var(--dim); font-size:12.5px; }
+  .tabs { display:flex; flex-wrap:wrap; gap:8px; padding:10px 16px 2px; }
+  button { background:var(--card); color:var(--txt); border:1px solid var(--line);
+           border-radius:6px; padding:7px 12px; font-size:13.5px; cursor:pointer; }
+  button.on { background:#1f6feb; border-color:#1f6feb; color:#fff; }
+  .count { color:var(--dim); font-size:12px; padding:6px 16px 0; }
+  .wrap { padding:6px 8px 24px; }
+  table { width:100%; border-collapse:collapse; }
+  th, td { text-align:left; padding:8px 7px; border-bottom:1px solid var(--line); white-space:nowrap; }
+  th { position:sticky; top:0; background:var(--bg); color:var(--dim); font-size:11.5px;
+       text-transform:uppercase; letter-spacing:.04em; }
+  td.n, td.f, td.e { text-align:right; font-variant-numeric:tabular-nums; }
+  .g { color:var(--grn); font-weight:600; } .r { color:var(--red); }
+  .game { color:var(--dim); font-size:12px; }
+  .side-O { color:var(--grn); } .side-U { color:var(--amb); }
+  .foot { color:var(--dim); font-size:11.5px; padding:12px 16px 28px; line-height:1.6; }
+  a { color:#58a6ff; text-decoration:none; } a:hover { text-decoration:underline; }
+</style>
+</head>
+<body>
+<header>
+  <h1>PropBoard <span style="display:inline-block;font-size:10.5px;padding:1px 5px;border-radius:4px;border:1px solid var(--line);color:var(--dim);">EV vs Pinnacle</span></h1>
+  <div class="meta">Week 3 slate (Sun Sep 27 + Mon Sep 28) &middot; lines pulled Thu Sep 24 evening PT &middot; fair = Pinnacle devig, priced at DraftKings &middot; <a href="./">live-odds board &rarr;</a></div>
+</header>
+
+<div class="tabs">
+  <button class="on" onclick="show('early',this)">10am games</button>
+  <button onclick="show('late',this)">1pm games</button>
+  <button onclick="show('night',this)">Sun Night + Mon Night</button>
+</div>
+<div class="count" id="count"></div>
+
+<div class="wrap">
+<table>
+  <thead><tr>
+    <th>Player</th><th>Prop</th><th>Side</th>
+    <th class="n">DK price</th><th class="f">Fair p</th><th class="e">EV</th><th>Game</th>
+  </tr></thead>
+  <tbody id="rows"></tbody>
+</table>
+</div>
+
+<div class="foot">
+  <b>Method.</b> DK and Pinnacle lines captured 2026-09-24 evening PT (fair-odds ingest runs 23–24). Fair probability = Pinnacle two-way devig (multiplicative). EV = fair win rate &minus; DK break-even (1/decimal odds). All prices are DK dollars-by-dollars American odds.<br><br>
+  <b>Reading it.</b> EV is expected return per dollar staked, pre-boost — a 100% profit boost roughly doubles the boost-eligible leg's edge. Every leg listed is near coin-flip odds (|price| &le; +136) at time of pull, and windows only carry the slate's actual kickoff splits: 10am PT early games, 1:05/1:25pm PT late games, 5:20pm PT SNF.<br><br>
+  <b>Night games.</b> No positive-EV leg exists on Rams @ Broncos — night tab shows those prices anyway, best first, for completeness. Bears @ Eagles (Mon night) has <b>no EV score at all</b>: the Pinnacle snapshot for that game failed to return, so nothing there was verifiable — anything from that game is a naked pick.<br><br>
+  <b>Stale.</b> Lines move; this is a Thursday-evening snapshot for the weekend slate. Verify every price on the DK app at bet time. Player are listed by their game's event mapping in the database; one line (Waddle receiving o4.5) was dropped for a bad fixture mapping rather than guessed around.
+</div>
+
+<script>
+const GAMES = {
+  'LAC @ BUF':'Chargers @ Bills','CAR @ CLE':'Panthers @ Browns','CIN @ PIT':'Bengals @ Steelers',
+  'NYJ @ DET':'Jets @ Lions','HOU @ IND':'Texans @ Colts','NE @ JAX':'Patriots @ Jaguars',
+  'KC @ MIA':'Chiefs @ Dolphins','TEN @ NYG':'Titans @ Giants','SEA @ WSH':'Seahawks @ Commanders',
+  'ARI @ SF':'Cardinals @ 49ers','MIN @ TB':'Vikings @ Buccaneers','BAL @ DAL':'Ravens @ Cowboys (Rio)',
+  'LV @ NO':'Raiders @ Saints','LAR @ DEN':'Rams @ Broncos','CHI @ PHI':'Bears @ Eagles',
+};
+
+// [player, prop, side 'O'/'U', dk price, fair p, ev, window, game]
+const LEGS = [
+  // ---- early window (10am PT) ----
+  ['Garrett Wilson','Under 5.5 receptions','U','-105','0.538','+5.0%','early','NYJ @ DET'],
+  ['Jameis Winston','Under 30.5 pass att','U','-106','0.539','+4.8%','early','TEN @ NYG'],
+  ['Malik Willis','Under 16.5 pass comp','U','+101','0.514','+3.4%','early','KC @ MIA'],
+  ['Rhamondre Stevenson','Under 8.5 rush att','U','+105','0.500','+2.5%','early','NE @ JAX'],
+  ['Jaylin Noel','Over 2.5 receptions','O','+116','0.472','+1.9%','early','HOU @ IND'],
+  ['Jaxon Smith-Njigba','Under 6.5 receptions','U','+101','0.506','+1.7%','early','SEA @ WSH'],
+  ['Quinshon Judkins','Under 2.5 receptions','U','-116','0.546','+1.6%','early','CAR @ CLE'],
+  ['Dalton Schultz','Under 5.5 receptions','U','-132','0.577','+1.4%','early','HOU @ IND'],
+  ['Marcus Mariota','Over 17.5 pass comp','O','+105','0.494','+1.3%','early','SEA @ WSH'],
+  ['DeMario Douglas','Under 2.5 receptions','U','+136','0.429','+1.2%','early','NE @ JAX'],
+  ['Xavier Hutchinson','Over 3.5 receptions','O','+119','0.462','+1.2%','early','HOU @ IND'],
+  ['Cam Ward','Under 31.5 pass att','U','-105','0.517','+1.0%','early','TEN @ NYG'],
+  ['Xavier Worthy','Under 3.5 receptions','U','-108','0.524','+0.9%','early','KC @ MIA'],
+  ['Omarion Hampton','Under 1.5 receptions','U','+128','0.441','+0.7%','early','LAC @ BUF'],
+  // ---- late window (1:05 / 1:25pm PT) ----
+  ['Derrick Henry','Under 18.5 rush att','U','-108','0.538','+3.6%','late','BAL @ DAL'],
+  ['Javonte Williams','Under 2.5 receptions','U','+120','0.470','+3.4%','late','BAL @ DAL'],
+  ['Lamar Jackson','Under 6.5 rush att','U','-130','0.581','+2.8%','late','BAL @ DAL'],
+  ['Tyler Shough','Over 22.5 pass comp','O','+105','0.498','+2.1%','late','LV @ NO'],
+  ['Kirk Cousins','Under 20.5 pass comp','U','-108','0.527','+1.6%','late','LV @ NO'],
+  ['Brock Purdy','Over 31.5 pass att','O','+100','0.504','+0.8%','late','ARI @ SF'],
+  ['Jacoby Brissett','Over 33.5 pass att','O','-101','0.506','+0.7%','late','ARI @ SF'],
+  ['Juwan Johnson','Over 3.5 receptions','O','+113','0.472','+0.5%','late','LV @ NO'],
+  ['Dak Prescott','Over 3.5 rush att','O','+109','0.481','+0.5%','late','BAL @ DAL'],
+  // ---- night (SNF 5:20pm PT; MNF Mon) ----
+  ['Matthew Stafford','Under 33.5 pass att','U','-103','0.500','-1.5%','night','LAR @ DEN'],
+  ['Blake Corum','Under 11.5 rush att','U','-110','0.514','-1.8%','night','LAR @ DEN'],
+  ['Kyren Williams','Over 12.5 rush att','O','-107','0.500','-3.3%','night','LAR @ DEN'],
+  ['Evan Engram','Under 2.5 receptions','U','-101','0.486','-3.3%','night','LAR @ DEN'],
+  ['Bo Nix','Over 1.5 pass TDs','O','+131','0.417','-3.7%','night','LAR @ DEN'],
+  ['Matthew Stafford','Under 0.5 rush yds','U','-147','0.573','-3.7%','night','LAR @ DEN'],
+  ['Bo Nix','Over 33.5 pass att','O','-111','0.506','-3.8%','night','LAR @ DEN'],
+  ['Bo Nix','Over 21.5 pass comp','O','+100','0.481','-3.8%','night','LAR @ DEN'],
+  ['Matthew Stafford','Over 1.5 pass TDs','O','-113','0.510','-3.8%','night','LAR @ DEN'],
+  ['Pat Bryant','Over 2.5 receptions','O','-113','0.506','-4.6%','night','LAR @ DEN'],
+  ['Kyren Williams','Over 52.5 rush yds','O','-112','0.502','-5.0%','night','LAR @ DEN'],
+  ['—','Bears @ Eagles (Mon night): no line scored — Pinnacle snapshot unavailable for this game','','','','','night','CHI @ PHI'],
+];
+
+function show(w, btn) {
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  const tb = document.getElementById('rows');
+  tb.innerHTML = '';
+  let n = 0;
+  for (const [player,prop,side,price,fair,ev,win,game] of LEGS) {
+    if (win !== w) continue;
+    n++;
+    const evc = ev.startsWith('+') ? 'g' : (ev.startsWith('−')||ev.startsWith('-')) ? 'r' : '';
+    const sc  = side === 'O' ? 'side-O' : side === 'U' ? 'side-U' : '';
+    tb.insertAdjacentHTML('beforeend',
+      `<tr><td>${player}</td><td>${prop}</td><td class="${sc}">${side}</td>` +
+      `<td class="n">${price}</td><td class="f">${fair}</td>` +
+      `<td class="e ${evc}">${ev}</td>` +
+      `<td class="game">${GAMES[game] || game}</td></tr>`);
+  }
+  document.getElementById('count').textContent =
+    `${n} leg${n===1?'':'s'} · snapshot Thu Sep 24 evening PT · EV = fair win % minus DK break-even, pre-boost`;
+}
+show('early', document.querySelector('.tabs button'));
+</script>
+</body>
+</html>
