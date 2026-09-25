@@ -70,6 +70,7 @@
   <th class="gcell">GW o9.5</th><th class="gcell">o11.5</th><th class="gcell">o12.5</th>
   <th class="gcell">Aces o3.5</th><th class="gcell">u4.5</th>
   <th class="gcell">DF u3.5</th><th class="gcell">o3.5</th>
+  <th class="gcell">E[FS]</th><th class="gcell">FS LESS ≥</th>
   <th>Notes</th>
 </tr></thead>
 <tbody></tbody>
@@ -127,6 +128,8 @@ DATA.players.forEach(r=>{
     <td class="gcell">${f(r.g[0])}</td><td class="gcell">${f(r.g[1])}</td><td class="gcell">${f(r.g[2])}</td>
     <td class="gcell">${f(r.ac35)}</td><td class="gcell">${f(r.acu45)}</td>
     <td class="gcell">${f(r.dfu35)}</td><td class="gcell">${f(r.dfo35)}</td>
+    <td class="gcell">${r.fs_ev==null ? '<span class=\"d\">—</span>' : r.fs_ev.toFixed(1)}</td>
+    <td class="gcell">${r.fs_less_gate==null ? '<span class=\"d\">—</span>' : r.fs_less_gate}</td>
     <td class="note">${r.note||''}</td></tr>`);
 });
 
